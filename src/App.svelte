@@ -1,8 +1,11 @@
 <script>
-	import Form from './Form.svelte';
+	import InputForm from './InputForm.svelte';
+	import DownloadForm from './DownloadForm.svelte';
 	import Thumbnail from './Thumbnail.svelte';
 
 	let download = null
+
+	let fetched = false;
 
 	let state = {
 		title: "Tutorial de Git",
@@ -23,7 +26,16 @@
 
 <main>
 <Thumbnail on:download={downloaded} download={download} state={state} />
-  <Form on:submit={handleSubmit} bind:state={state} />
+<label>
+	<input type="checkbox" bind:checked={fetched} />
+Descargar desde el servidor
+</label>
+
+{#if fetched}
+<DownloadForm bind:state={state} on:submit={handleSubmit} />
+{:else}
+<InputForm on:submit={handleSubmit} bind:state={state} />
+{/if}
 </main>
 
 <style>

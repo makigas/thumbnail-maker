@@ -6,7 +6,7 @@
 
 	<label>
 		<span>{label}:</span>
-		<select bind:value={value}>
+		<select on:change bind:value={value}>
       {#each choices as [key, label]}
         <option value={key}>{label}</option>
       {/each}

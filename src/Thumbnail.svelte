@@ -218,11 +218,15 @@ section {
 }
 
 .title {
-  font-size: 100px;
+font-size: 80px;
+letter-spacing: -4px;
+word-spacing: -4px;
   font-weight: bold;
 }
 .lesson {
-  font-size: 80px;
+font-size: 65px;
+letter-spacing: -4px;
+word-spacing: -4px;
 }
 
 .topic {
