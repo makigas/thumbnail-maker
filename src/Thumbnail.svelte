@@ -1,6 +1,6 @@
 <script>
   import { createEventDispatcher } from 'svelte';
-	import { saveSvgAsPng } from 'save-svg-as-png';
+	import { saveSvgAsPng, svgAsPngUri } from 'save-svg-as-png';
 
   const dispatch = createEventDispatcher()
 
@@ -10,7 +10,9 @@
 
   $: if (!!download) {
     const title = `${state.title}_${state.chapter}.png`;
-    saveSvgAsPng(svg, title);
+    svgAsPngUri(svg).then(() => {
+      saveSvgAsPng(svg, title);
+    })
     dispatch('download');
   }
 
