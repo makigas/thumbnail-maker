@@ -12,16 +12,17 @@
 	};
 
 	function handleSubmit() {
-		console.log("pues bueno")
-		console.log({ download })
 		download = Date.now()
-		console.log({ download })
+	}
+
+	function downloaded() {
+		download = null
 	}
 
 </script>
 
 <main>
-  <Thumbnail download={download} state={state} />
+<Thumbnail on:download={downloaded} download={download} state={state} />
   <Form on:submit={handleSubmit} bind:state={state} />
 </main>
 
