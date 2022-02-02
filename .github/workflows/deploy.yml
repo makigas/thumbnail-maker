@@ -1,0 +1,21 @@
+---
+
+name: Deploy to GH Pages
+on:
+  push:
+    branches:
+      - trunk
+jobs:
+  deploy:
+		steps:
+      - name: Get code
+        uses: actions/checkout@v2
+      - name: Install and build
+        run: |
+          npm ci
+          npm run build
+      - name: Deploy to GH
+        uses: JamesIves/github-pages-deploy-action@v4.2.3
+        with:
+          branch: gh-pages
+          folder: .
