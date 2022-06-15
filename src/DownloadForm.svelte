@@ -18,13 +18,13 @@
 	}
 
 	function fetchTopics() {
-		return fetch('https://www.makigas.es/topics.json')
+		return fetch('https://www.makigas.es/temas.json')
 			.then(xhr => xhr.json())
 			.then(({ topics }) => topics.map(({ title, slug }) => ({ title, slug })));
 	}
 
 	function fetchTopic(slug) {
-		return fetch(`https://www.makigas.es/topics/${slug}.json`)
+		return fetch(`https://www.makigas.es/temas/${slug}.json`)
 			.then(xhr => xhr.json())
 			.then(({ playlists }) => playlists.map(p => ({
 				title: p.title,
@@ -36,7 +36,6 @@
 		selectedTopic = e.target.value
 		fetchTopic(selectedTopic).then((lists) => {
 			playlists = lists
-			console.log(playlists)
 			playlistsSelect = playlists.map((p) => [p.title, p.title])
 			selectedPlaylist = playlistsSelect[0][0]
 			updateState()
