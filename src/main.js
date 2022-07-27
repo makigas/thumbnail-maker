@@ -1,11 +1,9 @@
 import './assets/global.css';
-import App from './App.svelte';
+import "carbon-components-svelte/css/g10.css";
+import ThumbnailMaker from "./ThumbnailMaker.svelte";
 
-const app = new App({
-	target: document.body,
-	props: {
-		name: 'world'
-	}
+const app = new ThumbnailMaker({
+  target: document.body,
 });
 
 export default app;

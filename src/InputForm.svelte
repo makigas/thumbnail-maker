@@ -1,35 +1,46 @@
 <script>
-	import TextBox from './TextBox.svelte';
-	import Select from './Select.svelte';
+  import {
+    Form,
+    FormGroup,
+    TextInput,
+    Select,
+    SelectItem,
+    Button,
+  } from "carbon-components-svelte";
 
   export let state;
-	let choices = [
-		["programming", "Programación"],
-		["skills", "Mejora tus skills"],
-		["gamedev", "Desarrollo de juegos"],
-		["java", "Java"],
-		["live", "Emisiones en directo"],
-		["webdev", "Desarrollo web"],
-	];
+  let choices = [
+    ["programming", "Programación"],
+    ["skills", "Mejora tus skills"],
+    ["gamedev", "Desarrollo de juegos"],
+    ["java", "Java"],
+    ["live", "Emisiones en directo"],
+    ["webdev", "Desarrollo web"],
+  ];
 </script>
 
-<form on:submit|preventDefault>
-  <TextBox label="Serie" placeholder="Título de la serie" bind:value={state.title} />
-  <TextBox label="Capítulo" placeholder="Nombre del capítulo" bind:value={state.chapter} />
-  <TextBox label="URL" placeholder="URL de la foto" bind:value={state.url} />
-  <Select label="Categoría" bind:value={state.category} choices={choices} />
-	<button type="submit">Descargar</button>
-</form>
-
-<style>
-button {
-	width: 100%;
-}
-
-@media (min-width: 800px) {
-  button {
-  	margin-left: 20rem;
-		width: calc(100% - 20rem);
-  }
-}
-</style>
+<Form on:submit>
+  <FormGroup>
+    <TextInput
+      labelText="Serie"
+      placeholder="Título de la serie"
+      bind:value={state.title}
+    />
+    <TextInput
+      labelText="Capítulo"
+      placeholder="Nombre del capítulo"
+      bind:value={state.chapter}
+    />
+    <TextInput
+      labelText="URL"
+      placeholder="URL de la foto"
+      bind:value={state.url}
+    />
+    <Select labelText="Categoría" bind:selected={state.category}>
+      {#each choices as choice}
+        <SelectItem value={choice[0]} text={choice[1]} />
+      {/each}
+    </Select>
+  </FormGroup>
+  <Button type="submit">Descargar</Button>
+</Form>
