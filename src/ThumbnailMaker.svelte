@@ -1,4 +1,5 @@
 <script>
+  import { Checkbox, Form, FormGroup, Button } from "carbon-components-svelte";
   import InputForm from "./InputForm.svelte";
   import DownloadForm from "./DownloadForm.svelte";
   import Thumbnail from "./Thumbnail.svelte";
@@ -15,7 +16,7 @@
   };
 
   function handleSubmit(e) {
-		e.preventDefault();
+    e.preventDefault();
     download = Date.now();
   }
 
@@ -26,16 +27,21 @@
 
 <main>
   <Thumbnail on:download={downloaded} {download} {state} />
-  <label>
-    <input type="checkbox" bind:checked={fetched} />
-    Descargar desde el servidor
-  </label>
 
-  {#if fetched}
-    <DownloadForm bind:state on:submit={handleSubmit} />
-  {:else}
-    <InputForm on:submit={handleSubmit} bind:state />
-  {/if}
+	<Form on:submit={handleSubmit}>
+		<FormGroup>
+			<Checkbox labelText="Obtener listas del servidor" bind:checked={fetched} />
+		</FormGroup>
+
+    {#if fetched}
+      <DownloadForm bind:state />
+    {:else}
+      <InputForm bind:state />
+    {/if}
+    <FormGroup>
+      <Button type="submit">Descargar</Button>
+    </FormGroup>
+  </Form>
 </main>
 
 <style>
