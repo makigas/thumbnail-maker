@@ -1,22 +1,23 @@
 <script>
+  import { store } from "./lib/state";
   import { createEventDispatcher } from 'svelte';
 	import { saveSvgAsPng, svgAsPngUri } from 'save-svg-as-png';
 
   const dispatch = createEventDispatcher()
 
-	export let state;
   export let download;
+  
   let svg;
 
   $: if (!!download) {
-    const title = `${state.title}_${state.chapter}.png`;
+    const title = `${$store.title}_${$store.chapter}.png`;
     svgAsPngUri(svg).then(() => {
       saveSvgAsPng(svg, title);
     })
     dispatch('download');
   }
 
-  $: className = `thumb ${state.category}`;
+  $: className = `thumb ${$store.category}`;
 </script>
 
 <section>
@@ -53,7 +54,7 @@
             id="icon-image-src"
             width="180"
             height="180"
-            xlink:href={state.url} />
+            xlink:href={$store.url} />
           />
         </pattern>
       </defs>
@@ -178,14 +179,14 @@
         y="410"
         id="text-title"
         class="title"
-      >{state.title}</text>
+      >{$store.title}</text>
       <text
         font-family="Montserrat"
         x="50"
         y="520"
         id="text-description"
         class="lesson"
-      >{state.chapter}</text>
+      >{$store.chapter}</text>
     </svg>
 </section>
 

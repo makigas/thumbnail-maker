@@ -1,4 +1,5 @@
 <script>
+  import { store } from "./lib/state";
   import {
     Select,
     FormGroup,
@@ -8,11 +9,12 @@
     SelectItem,
   } from "carbon-components-svelte";
 
-  export let state;
   let selectedTopic = null;
   let playlists = [];
   let playlistsSelect = [];
   let selectedPlaylist = null;
+
+  let picked = false;
 
   const CATEGORIES = {
     "desarrollo-de-juegos": "gamedev",
@@ -42,6 +44,7 @@
 
   function topicChanged(e) {
     selectedTopic = e.detail;
+    picked = true;
     fetchTopic(selectedTopic).then((lists) => {
       playlists = lists;
       playlistsSelect = playlists.map((p) => [p.title, p.title]);
@@ -57,9 +60,9 @@
 
   function updateState() {
     let data = playlists.find((i) => i.title === selectedPlaylist);
-    state.category = CATEGORIES[selectedTopic];
-    state.title = data.title;
-    state.url = data.icon;
+    $store.category = CATEGORIES[selectedTopic];
+    $store.title = data.title;
+    $store.url = data.icon;
   }
 
   let topics = fetchTopics();
@@ -72,6 +75,9 @@
     <TextInputSkeleton />
   {:then topicList}
     <Select on:change={topicChanged} labelText="Tema" value={selectedTopic}>
+      {#if !picked}
+        <SelectItem text="(Elegir)" />
+      {/if}
       {#each topicList.map((t) => [t.slug, t.title]) as topic}
         <SelectItem value={topic[0]} text={topic[1]} />
       {/each}
@@ -84,7 +90,7 @@
     <TextInput
       labelText="Capítulo"
       placeholder="Nombre del capítulo"
-      bind:value={state.chapter}
+      bind:value={$store.chapter}
     />
   {/await}
 </FormGroup>

@@ -1,4 +1,6 @@
 <script>
+  import { store } from './lib/state';
+
   import {
     FormGroup,
     TextInput,
@@ -6,7 +8,6 @@
     SelectItem,
   } from "carbon-components-svelte";
 
-  export let state;
   let choices = [
     ["programming", "Programación"],
     ["skills", "Mejora tus skills"],
@@ -21,19 +22,19 @@
   <TextInput
     labelText="Serie"
     placeholder="Título de la serie"
-    bind:value={state.title}
+    bind:value={$store.title}
   />
   <TextInput
     labelText="Capítulo"
     placeholder="Nombre del capítulo"
-    bind:value={state.chapter}
+    bind:value={$store.chapter}
   />
   <TextInput
     labelText="URL"
     placeholder="URL de la foto"
-    bind:value={state.url}
+    bind:value={$store.url}
   />
-  <Select labelText="Categoría" bind:selected={state.category}>
+  <Select labelText="Categoría" bind:selected={$store.category}>
     {#each choices as choice}
       <SelectItem value={choice[0]} text={choice[1]} />
     {/each}

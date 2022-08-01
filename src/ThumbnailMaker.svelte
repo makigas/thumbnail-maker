@@ -4,16 +4,11 @@
   import DownloadForm from "./DownloadForm.svelte";
   import Thumbnail from "./Thumbnail.svelte";
 
+  /** The download timestamp. Using it to force a component repaint (and redownload). */
   let download = null;
 
-  let fetched = false;
-
-  let state = {
-    title: "Tutorial de Git",
-    chapter: "Capítulo 14",
-    url: "https://cdn.makigas.es/playlists/thumbnails/000/000/014/default/git.png?1483739128",
-    category: "java",
-  };
+  /** If true, display the server side lists. */
+  let downloadServerSide = false;
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -26,17 +21,17 @@
 </script>
 
 <main>
-  <Thumbnail on:download={downloaded} {download} {state} />
+  <Thumbnail on:download={downloaded} {download} />
 
 	<Form on:submit={handleSubmit}>
 		<FormGroup>
-			<Checkbox labelText="Obtener listas del servidor" bind:checked={fetched} />
+			<Checkbox labelText="Obtener listas del servidor" bind:checked={downloadServerSide} />
 		</FormGroup>
 
-    {#if fetched}
-      <DownloadForm bind:state />
+    {#if downloadServerSide}
+      <DownloadForm />
     {:else}
-      <InputForm bind:state />
+      <InputForm />
     {/if}
     <FormGroup>
       <Button type="submit">Descargar</Button>
