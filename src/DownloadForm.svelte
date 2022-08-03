@@ -9,6 +9,8 @@
     SelectItem,
   } from "carbon-components-svelte";
 
+  export let selected;
+
   let selectedTopic = null;
   let playlists = [];
   let playlistsSelect = [];
@@ -87,10 +89,12 @@
         <SelectItem value={playlist[0]} text={playlist[1]} />
       {/each}
     </Select>
-    <TextInput
-      labelText="Capítulo"
-      placeholder="Nombre del capítulo"
-      bind:value={$store.chapter}
-    />
+    {#if selected === 0}
+      <TextInput
+        labelText="Capítulo"
+        placeholder="Nombre del capítulo"
+        bind:value={$store.chapter}
+      />
+    {/if}
   {/await}
 </FormGroup>

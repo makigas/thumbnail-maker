@@ -1,5 +1,7 @@
 <script>
-  import { store } from './lib/state';
+  import { store } from "./lib/state";
+
+  export let selected;
 
   import {
     FormGroup,
@@ -24,11 +26,13 @@
     placeholder="Título de la serie"
     bind:value={$store.title}
   />
-  <TextInput
-    labelText="Capítulo"
-    placeholder="Nombre del capítulo"
-    bind:value={$store.chapter}
-  />
+  {#if selected === 0}
+    <TextInput
+      labelText="Capítulo"
+      placeholder="Nombre del capítulo"
+      bind:value={$store.chapter}
+    />
+  {/if}
   <TextInput
     labelText="URL"
     placeholder="URL de la foto"
