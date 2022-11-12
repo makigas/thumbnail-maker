@@ -8,6 +8,7 @@
     TextInput,
     Select,
     SelectItem,
+    Checkbox,
   } from "carbon-components-svelte";
 
   let choices = [
@@ -33,11 +34,14 @@
       bind:value={$store.chapter}
     />
   {/if}
-  <TextInput
-    labelText="URL"
-    placeholder="URL de la foto"
-    bind:value={$store.url}
-  />
+  <Checkbox labelText="Mostrar icono" bind:checked={$store.showIcon} />
+  {#if $store.showIcon}
+    <TextInput
+      labelText="URL"
+      placeholder="URL de la foto"
+      bind:value={$store.url}
+    />
+  {/if}
   <Select labelText="Categoría" bind:selected={$store.category}>
     {#each choices as choice}
       <SelectItem value={choice[0]} text={choice[1]} />

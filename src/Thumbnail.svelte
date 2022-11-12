@@ -166,14 +166,16 @@
       </svg>
     </g>
 
-    <circle
-      class="icon"
-      cx="1050"
-      cy={selected === 1 ? "380" : "420"}
-      r="180"
-      fill="url(#icon-image)"
-      filter="url(#inset-shadow)"
-    />
+    {#if $store.showIcon}
+      <circle
+        class="icon"
+        cx="1050"
+        cy={selected === 1 ? "380" : "420"}
+        r="180"
+        fill="url(#icon-image)"
+        filter="url(#inset-shadow)"
+      />
+    {/if}
 
     <text font-family="Montserrat" x="50" y="410" id="text-title" class="title"
       >{$store.title}</text
