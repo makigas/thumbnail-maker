@@ -65,7 +65,6 @@
     <g class="top">
       <svg
         class="makigas"
-        aria-role="img"
         aria-hidden="true"
         viewBox="0 0 47 7"
         version="1.1"
