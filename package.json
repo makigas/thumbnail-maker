@@ -24,6 +24,7 @@
   },
   "type": "module",
   "dependencies": {
+    "@fontsource/montserrat": "^4.5.13",
     "save-svg-as-png": "^1.4.17"
   }
 }
