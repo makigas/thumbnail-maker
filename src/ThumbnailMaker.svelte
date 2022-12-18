@@ -4,6 +4,8 @@
   import InputForm from "./InputForm.svelte";
   import DownloadForm from "./DownloadForm.svelte";
   import Thumbnail from "./Thumbnail.svelte";
+  import Thumbnail2023 from "./thumbnail/Thumbnail2023.svelte";
+  import IconForm from "./IconForm.svelte";
 
   /** The download timestamp. Using it to force a component repaint (and redownload). */
   let download = null;
@@ -25,7 +27,16 @@
 
 <main>
   <Menu bind:selected />
-  <Thumbnail {selected} on:download={downloaded} {download} />
+
+  {#if selected < 2}
+    <Thumbnail {selected} on:download={downloaded} {download} />
+  {:else if selected < 4}
+    <Thumbnail2023
+      selected={selected - 2}
+      on:download={downloaded}
+      {download}
+    />
+  {/if}
 
   <Form on:submit={handleSubmit}>
     <FormGroup>
@@ -33,13 +44,12 @@
         labelText="Obtener listas del servidor"
         bind:checked={downloadServerSide}
       />
+      {#if downloadServerSide}
+        <DownloadForm selected={selected % 2} />
+      {/if}
     </FormGroup>
-
-    {#if downloadServerSide}
-      <DownloadForm {selected} />
-    {:else}
-      <InputForm {selected} />
-    {/if}
+    <InputForm selected={selected % 2} is2023={selected >= 2} />
+    <IconForm is2023={selected >= 2} />
     <FormGroup>
       <Button type="submit">Descargar</Button>
     </FormGroup>
@@ -48,7 +58,7 @@
 
 <style>
   main {
-    max-width: 1024px;
+    max-width: 1280px;
     margin: 0 auto;
     padding-left: 35px;
     padding-right: 35px;

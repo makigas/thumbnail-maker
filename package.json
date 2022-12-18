@@ -1,6 +1,6 @@
 {
-  "name": "svelte-app",
-  "version": "1.0.0",
+  "name": "@makigas/thumbnail-maker",
+  "version": "3.0.0",
   "private": true,
   "scripts": {
     "build": "vite build",
@@ -8,7 +8,7 @@
     "preview": "vite preview",
     "lint": "npm run lint:js && npm run lint:css",
     "lint:js": "prettier -c src",
-    "lint:css": "stylelint src/**/*.css",
+    "lint:css": "stylelint --aei src/**/*.css",
     "fmt": "prettier -w src"
   },
   "devDependencies": {

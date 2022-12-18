@@ -7,6 +7,8 @@
     TextInputSkeleton,
     SelectSkeleton,
     SelectItem,
+    Column,
+    Row,
   } from "carbon-components-svelte";
 
   export let selected;
@@ -72,29 +74,37 @@
 
 <FormGroup>
   {#await topics}
-    <SelectSkeleton />
-    <SelectSkeleton />
-    <TextInputSkeleton />
+    <Row>
+      <Column>
+        <SelectSkeleton />
+      </Column>
+      <Column>
+        <SelectSkeleton />
+      </Column>
+    </Row>
   {:then topicList}
-    <Select on:change={topicChanged} labelText="Tema" value={selectedTopic}>
-      {#if !picked}
-        <SelectItem text="(Elegir)" />
-      {/if}
-      {#each topicList.map((t) => [t.slug, t.title]) as topic}
-        <SelectItem value={topic[0]} text={topic[1]} />
-      {/each}
-    </Select>
-    <Select on:change={listChanged} labelText="Lista" value={selectedPlaylist}>
-      {#each playlistsSelect as playlist}
-        <SelectItem value={playlist[0]} text={playlist[1]} />
-      {/each}
-    </Select>
-    {#if selected === 0}
-      <TextInput
-        labelText="Capítulo"
-        placeholder="Nombre del capítulo"
-        bind:value={$store.chapter}
-      />
-    {/if}
+    <Row>
+      <Column>
+        <Select on:change={topicChanged} labelText="Tema" value={selectedTopic}>
+          {#if !picked}
+            <SelectItem text="(Elegir)" />
+          {/if}
+          {#each topicList.map((t) => [t.slug, t.title]) as topic}
+            <SelectItem value={topic[0]} text={topic[1]} />
+          {/each}
+        </Select>
+      </Column>
+      <Column>
+        <Select
+          on:change={listChanged}
+          labelText="Lista"
+          value={selectedPlaylist}
+        >
+          {#each playlistsSelect as playlist}
+            <SelectItem value={playlist[0]} text={playlist[1]} />
+          {/each}
+        </Select>
+      </Column>
+    </Row>
   {/await}
 </FormGroup>
