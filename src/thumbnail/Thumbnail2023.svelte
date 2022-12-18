@@ -22,7 +22,7 @@
   $: titleLinesOffset = (120 * titleLines.length) / 2;
 
   $: if (!!download) {
-    const title = `${$store.title}_${$store.chapter}.png`;
+    const title = `${$store.title}_${store.episode}_${$store.chapter}.png`;
     svgAsPngUri(svg).then(() => {
       saveSvgAsPng(svg, title);
     });
